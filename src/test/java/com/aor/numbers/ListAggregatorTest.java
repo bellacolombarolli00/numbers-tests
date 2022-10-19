@@ -17,6 +17,10 @@ public class ListAggregatorTest {
         list = Arrays.asList(-1, -4, -5);
     }
 
+    public void init_distinct_bug_8726(){
+        list = Arrays.asList(1, 2, 4, 2);
+    }
+
     @Test
     public void sum() {
         ListAggregator aggregator = new ListAggregator();
@@ -56,5 +60,14 @@ public class ListAggregatorTest {
         int distinct = aggregator.distinct(list);
 
         Assertions.assertEquals(4, distinct);
+    }
+
+    @Test
+    public void distinct_bug_8726() {
+        init_distinct_bug_8726();
+        ListAggregator aggregator = new ListAggregator();
+        int distinct = aggregator.distinct(list);
+
+        Assertions.assertEquals(3, distinct);
     }
 }
